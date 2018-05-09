@@ -53,9 +53,11 @@ public class MainWindow extends javax.swing.JFrame
         jRadioButton_URL = new javax.swing.JRadioButton();
         jRadioButton_FILE = new javax.swing.JRadioButton();
         jButton_SELECTOR_FILE = new javax.swing.JButton();
+        jRadioButton_UPDATE = new javax.swing.JRadioButton();
 
         buttonGroup_url_file.add(jRadioButton_URL);
         buttonGroup_url_file.add(jRadioButton_FILE);
+        buttonGroup_url_file.add(jRadioButton_UPDATE);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -185,6 +187,15 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
 
+        jRadioButton_UPDATE.setText("Actualizar");
+        jRadioButton_UPDATE.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jRadioButton_UPDATEActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,15 +219,16 @@ public class MainWindow extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_SELECTOR))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton_URL)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton_FILE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextField_URL))
+                        .addComponent(jTextField_URL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_SELECTOR_FILE)))
+                        .addComponent(jButton_SELECTOR_FILE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton_URL)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton_FILE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton_UPDATE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -225,7 +237,8 @@ public class MainWindow extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton_URL)
-                    .addComponent(jRadioButton_FILE))
+                    .addComponent(jRadioButton_FILE)
+                    .addComponent(jRadioButton_UPDATE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_URL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,7 +305,10 @@ public class MainWindow extends javax.swing.JFrame
 		 */
 
 		ExecutorService executorService = Executors.newFixedThreadPool(2);
-		executorService.submit(new Runnable() { public void run() { ytdl.getVideo(jTextField_URL.getText(), _options, jTextField_OUTPUT.getText() + "/%(title)s.%(ext)s", jProgressBar_DProgress, jLabel_SPEED, jTextArea_OUTPUT); } });
+		if (!jRadioButton_UPDATE.isSelected())
+			executorService.submit(new Runnable() { public void run() { ytdl.getVideo(jTextField_URL.getText(), _options, jTextField_OUTPUT.getText() + "/%(title)s.%(ext)s", jProgressBar_DProgress, jLabel_SPEED, jTextArea_OUTPUT); } });
+		else
+			executorService.submit(new Runnable() { public void run() { ytdl.updateYTDL(jTextArea_OUTPUT, jProgressBar_DProgress); } });
     }//GEN-LAST:event_jButton_DESCARGARActionPerformed
 
     private void jButton_SALIRActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_SALIRActionPerformed
@@ -316,11 +332,15 @@ public class MainWindow extends javax.swing.JFrame
     private void jRadioButton_URLActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_URLActionPerformed
     {//GEN-HEADEREND:event_jRadioButton_URLActionPerformed
         jButton_SELECTOR_FILE.setEnabled(false);
+		if (!jButton_DESCARGAR.getText().contentEquals("Descargar!"))
+			jButton_DESCARGAR.setText("Descargar!");
     }//GEN-LAST:event_jRadioButton_URLActionPerformed
 
     private void jRadioButton_FILEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_FILEActionPerformed
     {//GEN-HEADEREND:event_jRadioButton_FILEActionPerformed
         jButton_SELECTOR_FILE.setEnabled(true);
+		if (!jButton_DESCARGAR.getText().contentEquals("Descargar!"))
+			jButton_DESCARGAR.setText("Descargar!");
     }//GEN-LAST:event_jRadioButton_FILEActionPerformed
 
     private void jButton_SELECTOR_FILEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_SELECTOR_FILEActionPerformed
@@ -330,6 +350,12 @@ public class MainWindow extends javax.swing.JFrame
 		fc.showOpenDialog(fc);
 		jTextField_URL.setText(fc.getSelectedFile().getPath());
     }//GEN-LAST:event_jButton_SELECTOR_FILEActionPerformed
+
+    private void jRadioButton_UPDATEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_UPDATEActionPerformed
+    {//GEN-HEADEREND:event_jRadioButton_UPDATEActionPerformed
+        jButton_SELECTOR_FILE.setEnabled(false);
+		jButton_DESCARGAR.setText("Actualizar!");
+    }//GEN-LAST:event_jRadioButton_UPDATEActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -394,6 +420,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar_DProgress;
     private javax.swing.JRadioButton jRadioButton_FILE;
+    private javax.swing.JRadioButton jRadioButton_UPDATE;
     private javax.swing.JRadioButton jRadioButton_URL;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea_OUTPUT;

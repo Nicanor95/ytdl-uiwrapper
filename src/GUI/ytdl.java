@@ -20,6 +20,39 @@ import javax.swing.JTextArea;
  */
 public class ytdl
 {
+	public static void updateYTDL(JTextArea outputArea, JProgressBar progressBar)
+	{
+		ArrayList _comArray = new ArrayList();
+		if (System.getProperty("os.name").contains("Windows"))
+			_comArray.add("./youtube-dl.exe");
+		else
+			_comArray.add("youtube-dl");
+		
+		_comArray.add("-U");
+		
+		try
+		{
+			Process yt_dl = new ProcessBuilder().command(_comArray).inheritIO().redirectErrorStream(true).redirectOutput(ProcessBuilder.Redirect.PIPE).start();
+			
+			BufferedReader _reader = new BufferedReader(new InputStreamReader(yt_dl.getInputStream()));
+			String line;
+			
+			while ((line = _reader.readLine()) != null)
+			{
+				outputArea.append(line + "\n");
+				//Autoscroll:
+				outputArea.setCaretPosition(outputArea.getDocument().getLength() - 1);
+			}
+			progressBar.setIndeterminate(true);
+			while(yt_dl.isAlive()) { /* Wait for yt_dl to finish */ }
+			progressBar.setIndeterminate(false);
+		}
+		catch (IOException e)
+		{
+			JOptionPane.showMessageDialog(null, "Error en la ejecucion de youtube-dl. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
 	public static void getVideo(String URL, ArrayList Options, String Output, JProgressBar progressBar, JLabel speedLabel, JTextArea outputArea)
 	{
 		ArrayList _comArray = new ArrayList();

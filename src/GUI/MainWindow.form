@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup_url_file">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup_url_file.add(jRadioButton_URL);&#xa;buttonGroup_url_file.add(jRadioButton_FILE);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup_url_file.add(jRadioButton_URL);&#xa;buttonGroup_url_file.add(jRadioButton_FILE);&#xa;buttonGroup_url_file.add(jRadioButton_UPDATE);"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
@@ -52,17 +52,17 @@
                       <Component id="jButton_SELECTOR" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jRadioButton_URL" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jRadioButton_FILE" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jTextField_URL" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jTextField_URL" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton_SELECTOR_FILE" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jRadioButton_URL" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jRadioButton_FILE" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jRadioButton_UPDATE" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -76,6 +76,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jRadioButton_URL" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jRadioButton_FILE" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRadioButton_UPDATE" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -265,6 +266,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_SELECTOR_FILEActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="jRadioButton_UPDATE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Actualizar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton_UPDATEActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
