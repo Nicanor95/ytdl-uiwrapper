@@ -8,7 +8,9 @@ package GUI;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.swing.Action;
 import javax.swing.JFileChooser;
+import javax.swing.text.DefaultEditorKit;
 
 
 /**
@@ -36,6 +38,7 @@ public class MainWindow extends javax.swing.JFrame
     {
 
         buttonGroup_url_file = new javax.swing.ButtonGroup();
+        jPopupMenu_RightClick = new javax.swing.JPopupMenu();
         jTextField_URL = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jCheckBox_AUDIO = new javax.swing.JCheckBox();
@@ -58,6 +61,10 @@ public class MainWindow extends javax.swing.JFrame
         buttonGroup_url_file.add(jRadioButton_URL);
         buttonGroup_url_file.add(jRadioButton_FILE);
         buttonGroup_url_file.add(jRadioButton_UPDATE);
+
+        Action paste = new DefaultEditorKit.PasteAction();
+        paste.putValue(Action.NAME, "Pegar");
+        jPopupMenu_RightClick.add(paste);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -263,6 +270,9 @@ public class MainWindow extends javax.swing.JFrame
                 .addContainerGap())
         );
 
+        jTextField_URL.setComponentPopupMenu(jPopupMenu_RightClick);
+        jTextField_OUTPUT.setComponentPopupMenu(jPopupMenu_RightClick);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -418,6 +428,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_SPEED;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu_RightClick;
     private javax.swing.JProgressBar jProgressBar_DProgress;
     private javax.swing.JRadioButton jRadioButton_FILE;
     private javax.swing.JRadioButton jRadioButton_UPDATE;

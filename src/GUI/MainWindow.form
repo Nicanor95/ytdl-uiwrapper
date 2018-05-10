@@ -7,6 +7,15 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup_url_file.add(jRadioButton_URL);&#xa;buttonGroup_url_file.add(jRadioButton_FILE);&#xa;buttonGroup_url_file.add(jRadioButton_UPDATE);"/>
       </AuxValues>
     </Component>
+    <Container class="javax.swing.JPopupMenu" name="jPopupMenu_RightClick">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="Action paste = new DefaultEditorKit.PasteAction();&#xa;paste.putValue(Action.NAME, &quot;Pegar&quot;);&#xa;jPopupMenu_RightClick.add(paste);"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -113,6 +122,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_URLActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTextField_URL.setComponentPopupMenu(jPopupMenu_RightClick);"/>
+      </AuxValues>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
@@ -203,6 +215,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField_OUTPUT">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTextField_OUTPUT.setComponentPopupMenu(jPopupMenu_RightClick);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_SELECTOR">
       <Properties>
