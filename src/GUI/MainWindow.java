@@ -67,7 +67,9 @@ public class MainWindow extends javax.swing.JFrame
         jPopupMenu_RightClick.add(paste);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setTitle("Youtube Downloader");
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(460, 400));
 
         jTextField_URL.addActionListener(new java.awt.event.ActionListener()
         {
