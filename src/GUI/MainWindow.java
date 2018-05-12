@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Data.QualityInfo;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,10 +41,13 @@ public class MainWindow extends javax.swing.JFrame
         buttonGroup_url_file = new javax.swing.ButtonGroup();
         jPopupMenu_RightClick = new javax.swing.JPopupMenu();
         jTextField_URL = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_OPTIONS = new javax.swing.JPanel();
         jCheckBox_AUDIO = new javax.swing.JCheckBox();
         jCheckBox_SUBTITLES = new javax.swing.JCheckBox();
         jCheckBox_EmbedSubtitles = new javax.swing.JCheckBox();
+        jPanel_QUALITY = new javax.swing.JPanel();
+        jComboBox_QUALITY_LIST = new javax.swing.JComboBox<>();
+        jButton_UPDATE_QUALITY_LIST = new javax.swing.JButton();
         jButton_DESCARGAR = new javax.swing.JButton();
         jButton_SALIR = new javax.swing.JButton();
         jTextField_OUTPUT = new javax.swing.JTextField();
@@ -69,8 +73,9 @@ public class MainWindow extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Youtube Downloader");
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(460, 400));
+        setMinimumSize(new java.awt.Dimension(460, 500));
 
+        jTextField_URL.setToolTipText("");
         jTextField_URL.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -79,9 +84,10 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 3, 10))); // NOI18N
+        jPanel_OPTIONS.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 3, 10))); // NOI18N
 
         jCheckBox_AUDIO.setText("Solo audio");
+        jCheckBox_AUDIO.setToolTipText("Descargar solamente el audio");
         jCheckBox_AUDIO.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -91,6 +97,7 @@ public class MainWindow extends javax.swing.JFrame
         });
 
         jCheckBox_SUBTITLES.setText("Subtitulos");
+        jCheckBox_SUBTITLES.setToolTipText("Descargar subtitulos");
         jCheckBox_SUBTITLES.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -100,35 +107,79 @@ public class MainWindow extends javax.swing.JFrame
         });
 
         jCheckBox_EmbedSubtitles.setText("Embeber Subtitulos");
+        jCheckBox_EmbedSubtitles.setToolTipText("Incluir subtitulos en el video, solo funciona con algunos formatos");
         jCheckBox_EmbedSubtitles.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel_QUALITY.setBorder(javax.swing.BorderFactory.createTitledBorder("Calidad:"));
+
+        jComboBox_QUALITY_LIST.setModel(new javax.swing.DefaultComboBoxModel<>());
+        jComboBox_QUALITY_LIST.setToolTipText("Lista de calidades de video a descargar.");
+
+        jButton_UPDATE_QUALITY_LIST.setText("Actualizar Lista");
+        jButton_UPDATE_QUALITY_LIST.setToolTipText("Actualizar lista de calidades, puede tomar un tiempo");
+        jButton_UPDATE_QUALITY_LIST.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton_UPDATE_QUALITY_LISTActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_QUALITYLayout = new javax.swing.GroupLayout(jPanel_QUALITY);
+        jPanel_QUALITY.setLayout(jPanel_QUALITYLayout);
+        jPanel_QUALITYLayout.setHorizontalGroup(
+            jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_QUALITYLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jComboBox_QUALITY_LIST, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_UPDATE_QUALITY_LIST)
+                .addContainerGap())
+        );
+        jPanel_QUALITYLayout.setVerticalGroup(
+            jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_QUALITYLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox_QUALITY_LIST, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_UPDATE_QUALITY_LIST))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jComboBox_QUALITY_LIST.addItem(new QualityInfo("bestvideo", "Mejor"));
+
+        javax.swing.GroupLayout jPanel_OPTIONSLayout = new javax.swing.GroupLayout(jPanel_OPTIONS);
+        jPanel_OPTIONS.setLayout(jPanel_OPTIONSLayout);
+        jPanel_OPTIONSLayout.setHorizontalGroup(
+            jPanel_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_OPTIONSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(jPanel_QUALITY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel_OPTIONSLayout.createSequentialGroup()
                         .addComponent(jCheckBox_AUDIO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(112, 112, 112))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel_OPTIONSLayout.createSequentialGroup()
                         .addComponent(jCheckBox_SUBTITLES)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel_OPTIONSLayout.createSequentialGroup()
                         .addComponent(jCheckBox_EmbedSubtitles)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel_OPTIONSLayout.setVerticalGroup(
+            jPanel_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_OPTIONSLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBox_AUDIO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox_SUBTITLES)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox_EmbedSubtitles)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel_QUALITY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jButton_DESCARGAR.setText("Descargar!");
@@ -166,6 +217,8 @@ public class MainWindow extends javax.swing.JFrame
         jTextArea_OUTPUT.setRows(5);
         jTextArea_OUTPUT.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(jTextArea_OUTPUT);
+
+        jLabel_SPEED.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
         jRadioButton_URL.setSelected(true);
         jRadioButton_URL.setText("URL");
@@ -212,17 +265,9 @@ public class MainWindow extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_OPTIONS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_SALIR)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(jLabel_SPEED)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_DESCARGAR))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField_OUTPUT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,7 +282,15 @@ public class MainWindow extends javax.swing.JFrame
                         .addComponent(jRadioButton_FILE)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton_UPDATE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 111, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton_SALIR)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_SPEED, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_DESCARGAR)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -259,16 +312,16 @@ public class MainWindow extends javax.swing.JFrame
                     .addComponent(jTextField_OUTPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_SELECTOR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_OPTIONS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton_SALIR)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton_DESCARGAR)
-                        .addComponent(jLabel_SPEED))
-                    .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton_SALIR))
+                    .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_SPEED, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -285,22 +338,35 @@ public class MainWindow extends javax.swing.JFrame
 
     private void jCheckBox_AUDIOActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox_AUDIOActionPerformed
     {//GEN-HEADEREND:event_jCheckBox_AUDIOActionPerformed
-        if(jCheckBox_SUBTITLES.isSelected() && !jCheckBox_EmbedSubtitles.isEnabled())
-		{
+        if (jCheckBox_SUBTITLES.isSelected() && !jCheckBox_EmbedSubtitles.isEnabled())
 			jCheckBox_EmbedSubtitles.setEnabled(true);
+		else
+			jCheckBox_EmbedSubtitles.setEnabled(false);
+		
+		if (jPanel_QUALITY.isEnabled() && jComboBox_QUALITY_LIST.isEnabled() && jButton_UPDATE_QUALITY_LIST.isEnabled())
+		{
+			jPanel_QUALITY.setEnabled(false);
+			jComboBox_QUALITY_LIST.setEnabled(false);
+			jButton_UPDATE_QUALITY_LIST.setEnabled(false);
 		}
 		else
 		{
-			jCheckBox_EmbedSubtitles.setEnabled(false);
+			jPanel_QUALITY.setEnabled(true);
+			jComboBox_QUALITY_LIST.setEnabled(true);
+			jButton_UPDATE_QUALITY_LIST.setEnabled(true);
 		}
+			
     }//GEN-LAST:event_jCheckBox_AUDIOActionPerformed
 
     private void jButton_DESCARGARActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_DESCARGARActionPerformed
     {//GEN-HEADEREND:event_jButton_DESCARGARActionPerformed
 		ArrayList _options = new ArrayList();
+		QualityInfo _quality = (QualityInfo)jComboBox_QUALITY_LIST.getSelectedItem();
 		
 		_options.add("--newline");
 		
+		if (!jCheckBox_AUDIO.isSelected())
+			_options.add("-f " + _quality.getCode() + "+" + "bestaudio");
 		if (jCheckBox_AUDIO.isSelected())
 			_options.add("-x");
 		if (jCheckBox_SUBTITLES.isSelected())
@@ -318,9 +384,9 @@ public class MainWindow extends javax.swing.JFrame
 
 		ExecutorService executorService = Executors.newFixedThreadPool(2);
 		if (!jRadioButton_UPDATE.isSelected())
-			executorService.submit(new Runnable() { public void run() { ytdl.getVideo(jTextField_URL.getText(), _options, jTextField_OUTPUT.getText() + "/%(title)s.%(ext)s", jProgressBar_DProgress, jLabel_SPEED, jTextArea_OUTPUT); } });
+			executorService.submit(new Runnable() { public void run() { YoutubeDl.getVideo(jTextField_URL.getText(), _options, jTextField_OUTPUT.getText() + "/%(title)s.%(ext)s", jProgressBar_DProgress, jLabel_SPEED, jTextArea_OUTPUT, jComboBox_QUALITY_LIST); } });
 		else
-			executorService.submit(new Runnable() { public void run() { ytdl.updateYTDL(jTextArea_OUTPUT, jProgressBar_DProgress); } });
+			executorService.submit(new Runnable() { public void run() { YoutubeDl.updateYTDL(jTextArea_OUTPUT, jProgressBar_DProgress); } });
     }//GEN-LAST:event_jButton_DESCARGARActionPerformed
 
     private void jButton_SALIRActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_SALIRActionPerformed
@@ -344,6 +410,12 @@ public class MainWindow extends javax.swing.JFrame
     private void jRadioButton_URLActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_URLActionPerformed
     {//GEN-HEADEREND:event_jRadioButton_URLActionPerformed
         jButton_SELECTOR_FILE.setEnabled(false);
+		if (!jPanel_QUALITY.isEnabled())
+		{
+			jPanel_QUALITY.setEnabled(true);
+			jComboBox_QUALITY_LIST.setEnabled(true);
+			jButton_UPDATE_QUALITY_LIST.setEnabled(true);
+		}
 		if (!jButton_DESCARGAR.getText().contentEquals("Descargar!"))
 			jButton_DESCARGAR.setText("Descargar!");
     }//GEN-LAST:event_jRadioButton_URLActionPerformed
@@ -351,6 +423,12 @@ public class MainWindow extends javax.swing.JFrame
     private void jRadioButton_FILEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_FILEActionPerformed
     {//GEN-HEADEREND:event_jRadioButton_FILEActionPerformed
         jButton_SELECTOR_FILE.setEnabled(true);
+		if (jPanel_QUALITY.isEnabled())
+		{
+			jPanel_QUALITY.setEnabled(false);
+			jComboBox_QUALITY_LIST.setEnabled(false);
+			jButton_UPDATE_QUALITY_LIST.setEnabled(false);
+		}
 		if (!jButton_DESCARGAR.getText().contentEquals("Descargar!"))
 			jButton_DESCARGAR.setText("Descargar!");
     }//GEN-LAST:event_jRadioButton_FILEActionPerformed
@@ -366,8 +444,20 @@ public class MainWindow extends javax.swing.JFrame
     private void jRadioButton_UPDATEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_UPDATEActionPerformed
     {//GEN-HEADEREND:event_jRadioButton_UPDATEActionPerformed
         jButton_SELECTOR_FILE.setEnabled(false);
+		if (jPanel_QUALITY.isEnabled())
+		{
+			jPanel_QUALITY.setEnabled(false);
+			jComboBox_QUALITY_LIST.setEnabled(false);
+			jButton_UPDATE_QUALITY_LIST.setEnabled(false);
+		}
 		jButton_DESCARGAR.setText("Actualizar!");
     }//GEN-LAST:event_jRadioButton_UPDATEActionPerformed
+
+    private void jButton_UPDATE_QUALITY_LISTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_UPDATE_QUALITY_LISTActionPerformed
+    {//GEN-HEADEREND:event_jButton_UPDATE_QUALITY_LISTActionPerformed
+		ExecutorService executorService = Executors.newFixedThreadPool(2);
+		executorService.submit(new Runnable() { public void run() { YoutubeDl.updateQualityList(jComboBox_QUALITY_LIST, jTextField_URL.getText(), jProgressBar_DProgress); } });
+    }//GEN-LAST:event_jButton_UPDATE_QUALITY_LISTActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -424,12 +514,15 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JButton jButton_SALIR;
     private javax.swing.JButton jButton_SELECTOR;
     private javax.swing.JButton jButton_SELECTOR_FILE;
+    private javax.swing.JButton jButton_UPDATE_QUALITY_LIST;
     private javax.swing.JCheckBox jCheckBox_AUDIO;
     private javax.swing.JCheckBox jCheckBox_EmbedSubtitles;
     private javax.swing.JCheckBox jCheckBox_SUBTITLES;
+    private javax.swing.JComboBox<QualityInfo> jComboBox_QUALITY_LIST;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_SPEED;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel_OPTIONS;
+    private javax.swing.JPanel jPanel_QUALITY;
     private javax.swing.JPopupMenu jPopupMenu_RightClick;
     private javax.swing.JProgressBar jProgressBar_DProgress;
     private javax.swing.JRadioButton jRadioButton_FILE;
