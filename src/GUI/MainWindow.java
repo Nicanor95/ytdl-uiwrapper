@@ -343,13 +343,13 @@ public class MainWindow extends javax.swing.JFrame
 		else
 			jCheckBox_EmbedSubtitles.setEnabled(false);
 		
-		if (jPanel_QUALITY.isEnabled() && jComboBox_QUALITY_LIST.isEnabled() && jButton_UPDATE_QUALITY_LIST.isEnabled())
+		if (jPanel_QUALITY.isEnabled() && jComboBox_QUALITY_LIST.isEnabled() && jButton_UPDATE_QUALITY_LIST.isEnabled() && jRadioButton_URL.isSelected())
 		{
 			jPanel_QUALITY.setEnabled(false);
 			jComboBox_QUALITY_LIST.setEnabled(false);
 			jButton_UPDATE_QUALITY_LIST.setEnabled(false);
 		}
-		else
+		else if (!jPanel_QUALITY.isEnabled() && !jComboBox_QUALITY_LIST.isEnabled() && !jButton_UPDATE_QUALITY_LIST.isEnabled() && jRadioButton_URL.isSelected())
 		{
 			jPanel_QUALITY.setEnabled(true);
 			jComboBox_QUALITY_LIST.setEnabled(true);

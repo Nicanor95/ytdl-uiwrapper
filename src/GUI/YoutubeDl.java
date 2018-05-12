@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,7 +30,7 @@ public class YoutubeDl
 		ArrayList<String> _comArray = new ArrayList<>();
 		
 		if (System.getProperty("os.name").contains("Windows"))
-			_comArray.add("./youtube-dl.exe");
+			_comArray.add("./tools/youtube-dl.exe");
 		else
 			_comArray.add("youtube-dl");
 		
@@ -58,19 +57,20 @@ public class YoutubeDl
 			{
 				qualityList.addItem(q);
 			}
-			progressBar.setIndeterminate(false);
 		}
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog(null, "Error en la ejecucion de youtube-dl. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
+		progressBar.setIndeterminate(false);
 	}
 	
 	public static void updateYTDL(JTextArea outputArea, JProgressBar progressBar)
 	{
+		progressBar.setIndeterminate(true);
 		ArrayList<String> _comArray = new ArrayList<>();
 		if (System.getProperty("os.name").contains("Windows"))
-			_comArray.add("./youtube-dl.exe");
+			_comArray.add("./tools/youtube-dl.exe");
 		else
 			_comArray.add("youtube-dl");
 		
@@ -89,23 +89,26 @@ public class YoutubeDl
 				//Autoscroll:
 				outputArea.setCaretPosition(outputArea.getDocument().getLength() - 1);
 			}
-			progressBar.setIndeterminate(true);
-			while(yt_dl.isAlive()) { /* Wait for yt_dl to finish */ }
-			progressBar.setIndeterminate(false);
+			
 		}
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog(null, "Error en la ejecucion de youtube-dl. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
+		progressBar.setIndeterminate(false);
 	}
 	
 	public static void getVideo(String URL, ArrayList Options, String Output, JProgressBar progressBar, JLabel speedLabel, JTextArea outputArea, JComboBox comboBox)
 	{
 		ArrayList<String> _comArray = new ArrayList<>();
 		if (System.getProperty("os.name").contains("Windows"))
-			_comArray.add("./youtube-dl.exe");
+		{
+			_comArray.add("./tools/youtube-dl.exe");
+			_comArray.add("--ffmpeg-location ./tools/ffmpeg/");
+		}
 		else
 			_comArray.add("youtube-dl");
+		
 		_comArray.addAll(Options);
 		_comArray.add(URL);
 		_comArray.add("-o");
