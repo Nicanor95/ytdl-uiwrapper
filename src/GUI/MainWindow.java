@@ -421,7 +421,15 @@ public class MainWindow extends javax.swing.JFrame
 		final JFileChooser fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		fc.showOpenDialog(fc);
-		jTextField_OUTPUT.setText(fc.getSelectedFile().getPath());
+		
+		try
+		{
+			jTextField_OUTPUT.setText(fc.getSelectedFile().getPath());
+		}
+		catch (Throwable e)
+		{
+			// Do Nothing.
+		}
     }//GEN-LAST:event_jButton_SELECTORActionPerformed
 
     private void jCheckBox_SUBTITLESActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox_SUBTITLESActionPerformed
@@ -460,7 +468,15 @@ public class MainWindow extends javax.swing.JFrame
         final JFileChooser fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		fc.showOpenDialog(fc);
-		jTextField_URL.setText(fc.getSelectedFile().getPath());
+		
+		try
+		{
+			jTextField_URL.setText(fc.getSelectedFile().getPath());
+		}
+		catch (Throwable e)
+		{
+			// Do nothing.
+		}
     }//GEN-LAST:event_jButton_SELECTOR_FILEActionPerformed
 
     private void jRadioButton_UPDATEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_UPDATEActionPerformed
