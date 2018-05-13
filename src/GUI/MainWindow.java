@@ -137,8 +137,8 @@ public class MainWindow extends javax.swing.JFrame
         jTextPane1.setBackground(new Color(255,255,255,0));
         jTextPane1.setBorder(null);
         jTextPane1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextPane1.setText("Las opciones de calidad de video requieren FFMPEG, puede obtenerlo en:\n\nhttps://ffmpeg.org");
-        jTextPane1.setToolTipText("");
+        jTextPane1.setText("Las opciones de calidad de video requieren FFMPEG o AVCONF.");
+        jTextPane1.setToolTipText("Se pueden obtener facilmente con Chocolatey:  · https://chocolatey.org  o puede obtenerlos en:  · https://libav.org  · https://ffmpeg.org");
         jTextPane1.setOpaque(false);
         jScrollPane2.setViewportView(jTextPane1);
 
@@ -168,8 +168,8 @@ public class MainWindow extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jComboBox_QUALITY_LIST.addItem(new QualityInfo("", "[NO FFMPEG]"));
         jComboBox_QUALITY_LIST.addItem(new QualityInfo("bestvideo", "Mejor"));
+        jComboBox_QUALITY_LIST.addItem(new QualityInfo("", "No usar FFMPEG"));
 
         javax.swing.GroupLayout jPanel_OPTIONSLayout = new javax.swing.GroupLayout(jPanel_OPTIONS);
         jPanel_OPTIONS.setLayout(jPanel_OPTIONSLayout);
@@ -236,6 +236,7 @@ public class MainWindow extends javax.swing.JFrame
 
         jScrollPane1.setAutoscrolls(true);
 
+        jTextArea_OUTPUT.setEditable(false);
         jTextArea_OUTPUT.setColumns(20);
         jTextArea_OUTPUT.setRows(5);
         jTextArea_OUTPUT.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -337,7 +338,7 @@ public class MainWindow extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_OPTIONS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,7 +388,7 @@ public class MainWindow extends javax.swing.JFrame
 		
 		_options.add("--newline");
 		
-		if (!jCheckBox_AUDIO.isSelected() && !_quality.getName().equals("[NO FFMPEG]"))
+		if (!jCheckBox_AUDIO.isSelected() && !_quality.getName().equals("No usar FFMPEG"))
 			_options.add("-f " + _quality.getCode() + "+" + "bestaudio");
 		if (jCheckBox_AUDIO.isSelected())
 			_options.add("-x");
@@ -440,7 +441,7 @@ public class MainWindow extends javax.swing.JFrame
     private void jRadioButton_URLActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_URLActionPerformed
     {//GEN-HEADEREND:event_jRadioButton_URLActionPerformed
         jButton_SELECTOR_FILE.setEnabled(false);
-		if (!jPanel_QUALITY.isEnabled())
+		if (!jPanel_QUALITY.isEnabled() && !jCheckBox_AUDIO.isSelected())
 		{
 			jPanel_QUALITY.setEnabled(true);
 			jComboBox_QUALITY_LIST.setEnabled(true);

@@ -109,7 +109,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel_OPTIONS" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="150" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="176" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jProgressBar_DProgress" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
@@ -263,7 +263,7 @@
                 <Property name="toolTipText" type="java.lang.String" value="Lista de calidades de video a descargar."/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jComboBox_QUALITY_LIST.addItem(new QualityInfo(&quot;&quot;, &quot;[NO FFMPEG]&quot;));&#xa;jComboBox_QUALITY_LIST.addItem(new QualityInfo(&quot;bestvideo&quot;, &quot;Mejor&quot;));"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jComboBox_QUALITY_LIST.addItem(new QualityInfo(&quot;bestvideo&quot;, &quot;Mejor&quot;));&#xa;jComboBox_QUALITY_LIST.addItem(new QualityInfo(&quot;&quot;, &quot;No usar FFMPEG&quot;));"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;QualityInfo&gt;"/>
               </AuxValues>
             </Component>
@@ -302,8 +302,8 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Las opciones de calidad de video requieren FFMPEG, puede obtenerlo en:&#xa;&#xa;https://ffmpeg.org"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="text" type="java.lang.String" value="Las opciones de calidad de video requieren FFMPEG o AVCONF."/>
+                    <Property name="toolTipText" type="java.lang.String" value="Se pueden obtener facilmente con Chocolatey:  &#xb7; https://chocolatey.org  o puede obtenerlos en:  &#xb7; https://libav.org  &#xb7; https://ffmpeg.org"/>
                     <Property name="opaque" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -361,6 +361,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="jTextArea_OUTPUT">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
