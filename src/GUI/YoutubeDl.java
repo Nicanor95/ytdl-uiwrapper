@@ -104,7 +104,6 @@ public class YoutubeDl
 		if (System.getProperty("os.name").contains("Windows"))
 		{
 			_comArray.add("./tools/youtube-dl.exe");
-			_comArray.add("--ffmpeg-location ./tools/ffmpeg/");
 		}
 		else
 			_comArray.add("youtube-dl");

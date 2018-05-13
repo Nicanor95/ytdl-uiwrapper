@@ -6,6 +6,7 @@
 package GUI;
 
 import Data.QualityInfo;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,6 +49,8 @@ public class MainWindow extends javax.swing.JFrame
         jPanel_QUALITY = new javax.swing.JPanel();
         jComboBox_QUALITY_LIST = new javax.swing.JComboBox<>();
         jButton_UPDATE_QUALITY_LIST = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jButton_DESCARGAR = new javax.swing.JButton();
         jButton_SALIR = new javax.swing.JButton();
         jTextField_OUTPUT = new javax.swing.JTextField();
@@ -73,7 +76,8 @@ public class MainWindow extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Youtube Downloader");
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(460, 500));
+        setMinimumSize(new java.awt.Dimension(460, 560));
+        setPreferredSize(new java.awt.Dimension(460, 560));
 
         jTextField_URL.setToolTipText("");
         jTextField_URL.addActionListener(new java.awt.event.ActionListener()
@@ -125,15 +129,31 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
 
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jTextPane1.setEditable(false);
+        jTextPane1.setBackground(new Color(255,255,255,0));
+        jTextPane1.setBorder(null);
+        jTextPane1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jTextPane1.setText("Las opciones de calidad de video requieren FFMPEG, puede obtenerlo en:\n\nhttps://ffmpeg.org");
+        jTextPane1.setToolTipText("");
+        jTextPane1.setOpaque(false);
+        jScrollPane2.setViewportView(jTextPane1);
+
         javax.swing.GroupLayout jPanel_QUALITYLayout = new javax.swing.GroupLayout(jPanel_QUALITY);
         jPanel_QUALITY.setLayout(jPanel_QUALITYLayout);
         jPanel_QUALITYLayout.setHorizontalGroup(
             jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_QUALITYLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox_QUALITY_LIST, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_UPDATE_QUALITY_LIST)
+                .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel_QUALITYLayout.createSequentialGroup()
+                        .addComponent(jComboBox_QUALITY_LIST, 0, 218, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_UPDATE_QUALITY_LIST)))
                 .addContainerGap())
         );
         jPanel_QUALITYLayout.setVerticalGroup(
@@ -143,9 +163,12 @@ public class MainWindow extends javax.swing.JFrame
                 .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox_QUALITY_LIST, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_UPDATE_QUALITY_LIST))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jComboBox_QUALITY_LIST.addItem(new QualityInfo("", "[NO FFMPEG]"));
         jComboBox_QUALITY_LIST.addItem(new QualityInfo("bestvideo", "Mejor"));
 
         javax.swing.GroupLayout jPanel_OPTIONSLayout = new javax.swing.GroupLayout(jPanel_OPTIONS);
@@ -178,8 +201,8 @@ public class MainWindow extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox_EmbedSubtitles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel_QUALITY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel_QUALITY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton_DESCARGAR.setText("Descargar!");
@@ -314,13 +337,12 @@ public class MainWindow extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_OPTIONS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton_DESCARGAR)
-                        .addComponent(jButton_SALIR))
                     .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_DESCARGAR, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton_SALIR, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel_SPEED, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -365,7 +387,7 @@ public class MainWindow extends javax.swing.JFrame
 		
 		_options.add("--newline");
 		
-		if (!jCheckBox_AUDIO.isSelected())
+		if (!jCheckBox_AUDIO.isSelected() && !_quality.getName().equals("[NO FFMPEG]"))
 			_options.add("-f " + _quality.getCode() + "+" + "bestaudio");
 		if (jCheckBox_AUDIO.isSelected())
 			_options.add("-x");
@@ -529,8 +551,10 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JRadioButton jRadioButton_UPDATE;
     private javax.swing.JRadioButton jRadioButton_URL;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea_OUTPUT;
     private javax.swing.JTextField jTextField_OUTPUT;
     private javax.swing.JTextField jTextField_URL;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }
