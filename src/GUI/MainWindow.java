@@ -50,6 +50,9 @@ public class MainWindow extends javax.swing.JFrame
         jButton_UPDATE_QUALITY_LIST = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox_AUDIO = new javax.swing.JComboBox<>();
         jButton_DESCARGAR = new javax.swing.JButton();
         jButton_SALIR = new javax.swing.JButton();
         jTextField_OUTPUT = new javax.swing.JTextField();
@@ -78,7 +81,6 @@ public class MainWindow extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(460, 560));
         setPreferredSize(new java.awt.Dimension(460, 560));
 
-        jTextField_URL.setToolTipText("");
         jTextField_URL.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -136,10 +138,17 @@ public class MainWindow extends javax.swing.JFrame
         jTextPane1.setBackground(new Color(255,255,255,0));
         jTextPane1.setBorder(null);
         jTextPane1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTextPane1.setText("Las opciones de calidad de video requieren FFMPEG o AVCONF.");
+        jTextPane1.setText("Las opciones de calidad requieren FFMPEG o AVCONF.");
         jTextPane1.setToolTipText("Se pueden obtener facilmente con Chocolatey:  · https://chocolatey.org  o puede obtenerlos en:  · https://libav.org  · https://ffmpeg.org");
         jTextPane1.setOpaque(false);
         jScrollPane2.setViewportView(jTextPane1);
+
+        jLabel1.setText("Video:");
+
+        jLabel3.setText("Audio:");
+
+        jComboBox_AUDIO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "mp3", "flac", "aac", "m4a", "opus", "vorbis", "wav" }));
+        jComboBox_AUDIO.setToolTipText("<html><p>Seleccionar el formato de audio, no tiene efecto si no se usa la opcion <i><b>\"solo audio\"</b></i></p></html>");
 
         javax.swing.GroupLayout jPanel_QUALITYLayout = new javax.swing.GroupLayout(jPanel_QUALITY);
         jPanel_QUALITY.setLayout(jPanel_QUALITYLayout);
@@ -149,8 +158,16 @@ public class MainWindow extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(jPanel_QUALITYLayout.createSequentialGroup()
-                        .addComponent(jComboBox_QUALITY_LIST, 0, 218, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_QUALITYLayout.createSequentialGroup()
+                        .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_QUALITYLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox_AUDIO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel_QUALITYLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox_QUALITY_LIST, 0, 161, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_UPDATE_QUALITY_LIST)))
                 .addContainerGap())
@@ -161,8 +178,13 @@ public class MainWindow extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox_QUALITY_LIST, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_UPDATE_QUALITY_LIST))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton_UPDATE_QUALITY_LIST)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel_QUALITYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox_AUDIO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -337,7 +359,7 @@ public class MainWindow extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_OPTIONS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBar_DProgress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,7 +412,11 @@ public class MainWindow extends javax.swing.JFrame
         if (!jCheckBox_AUDIO.isSelected() && !_quality.getName().equals("No usar FFMPEG"))
             _options.add("-f " + _quality.getCode() + "+" + "bestaudio");
         if (jCheckBox_AUDIO.isSelected())
+        {
             _options.add("-x");
+            _options.add("--audio-format");
+            _options.add(jComboBox_AUDIO.getSelectedItem());
+        }
         if (jCheckBox_SUBTITLES.isSelected())
             _options.add("--all-subs");
         if (jCheckBox_EmbedSubtitles.isEnabled() && jCheckBox_EmbedSubtitles.isSelected() && jCheckBox_SUBTITLES.isSelected())
@@ -567,8 +593,11 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JCheckBox jCheckBox_AUDIO;
     private javax.swing.JCheckBox jCheckBox_EmbedSubtitles;
     private javax.swing.JCheckBox jCheckBox_SUBTITLES;
+    private javax.swing.JComboBox<String> jComboBox_AUDIO;
     private javax.swing.JComboBox<QualityInfo> jComboBox_QUALITY_LIST;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_SPEED;
     private javax.swing.JPanel jPanel_OPTIONS;
     private javax.swing.JPanel jPanel_QUALITY;
