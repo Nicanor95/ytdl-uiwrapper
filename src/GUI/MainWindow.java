@@ -6,6 +6,7 @@
 package GUI;
 
 import Data.QualityInfo;
+import com.formdev.flatlaf.*;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -14,12 +15,14 @@ import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.text.DefaultEditorKit;
 
+
 /**
  *
  * @author nicanor
  */
 public class MainWindow extends javax.swing.JFrame
 {
+    
     /**
      * Creates new form MainWindow
      */
@@ -35,8 +38,7 @@ public class MainWindow extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         buttonGroup_url_file = new javax.swing.ButtonGroup();
         jPopupMenu_RightClick = new javax.swing.JPopupMenu();
@@ -77,14 +79,13 @@ public class MainWindow extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Youtube Downloader");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(460, 560));
         setPreferredSize(new java.awt.Dimension(460, 560));
 
-        jTextField_URL.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextField_URL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_URLActionPerformed(evt);
             }
         });
@@ -93,20 +94,16 @@ public class MainWindow extends javax.swing.JFrame
 
         jCheckBox_AUDIO.setText("Solo audio");
         jCheckBox_AUDIO.setToolTipText("Descargar solamente el audio");
-        jCheckBox_AUDIO.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jCheckBox_AUDIO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox_AUDIOActionPerformed(evt);
             }
         });
 
         jCheckBox_SUBTITLES.setText("Subtitulos");
         jCheckBox_SUBTITLES.setToolTipText("Descargar subtitulos");
-        jCheckBox_SUBTITLES.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jCheckBox_SUBTITLES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox_SUBTITLESActionPerformed(evt);
             }
         });
@@ -122,10 +119,8 @@ public class MainWindow extends javax.swing.JFrame
 
         jButton_UPDATE_QUALITY_LIST.setText("Actualizar Lista");
         jButton_UPDATE_QUALITY_LIST.setToolTipText("Actualizar lista de calidades, puede tomar un tiempo");
-        jButton_UPDATE_QUALITY_LIST.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_UPDATE_QUALITY_LIST.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_UPDATE_QUALITY_LISTActionPerformed(evt);
             }
         });
@@ -227,28 +222,22 @@ public class MainWindow extends javax.swing.JFrame
         );
 
         jButton_DESCARGAR.setText("Descargar!");
-        jButton_DESCARGAR.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_DESCARGAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_DESCARGARActionPerformed(evt);
             }
         });
 
         jButton_SALIR.setText("Salir");
-        jButton_SALIR.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_SALIR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SALIRActionPerformed(evt);
             }
         });
 
         jButton_SELECTOR.setText("Selector");
-        jButton_SELECTOR.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_SELECTOR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SELECTORActionPerformed(evt);
             }
         });
@@ -260,45 +249,37 @@ public class MainWindow extends javax.swing.JFrame
         jTextArea_OUTPUT.setEditable(false);
         jTextArea_OUTPUT.setColumns(20);
         jTextArea_OUTPUT.setRows(5);
-        jTextArea_OUTPUT.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea_OUTPUT.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTextArea_OUTPUT);
 
         jLabel_SPEED.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
         jRadioButton_URL.setSelected(true);
         jRadioButton_URL.setText("URL");
-        jRadioButton_URL.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton_URL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_URLActionPerformed(evt);
             }
         });
 
         jRadioButton_FILE.setText("Archivo de Texto");
-        jRadioButton_FILE.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton_FILE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_FILEActionPerformed(evt);
             }
         });
 
         jButton_SELECTOR_FILE.setText("Selector");
         jButton_SELECTOR_FILE.setEnabled(false);
-        jButton_SELECTOR_FILE.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_SELECTOR_FILE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SELECTOR_FILEActionPerformed(evt);
             }
         });
 
         jRadioButton_UPDATE.setText("Actualizar");
-        jRadioButton_UPDATE.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton_UPDATE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_UPDATEActionPerformed(evt);
             }
         });
@@ -383,9 +364,13 @@ public class MainWindow extends javax.swing.JFrame
     private void jCheckBox_AUDIOActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox_AUDIOActionPerformed
     {//GEN-HEADEREND:event_jCheckBox_AUDIOActionPerformed
         if (jCheckBox_SUBTITLES.isSelected() && !jCheckBox_EmbedSubtitles.isEnabled())
+        {
             jCheckBox_EmbedSubtitles.setEnabled(true);
+        }
         else
+        {
             jCheckBox_EmbedSubtitles.setEnabled(false);
+        }
 
         if (jPanel_QUALITY.isEnabled() && jComboBox_QUALITY_LIST.isEnabled() && jButton_UPDATE_QUALITY_LIST.isEnabled() && jRadioButton_URL.isSelected())
         {
@@ -410,7 +395,9 @@ public class MainWindow extends javax.swing.JFrame
         _options.add("--newline");
 
         if (!jCheckBox_AUDIO.isSelected() && !_quality.getName().equals("No usar FFMPEG"))
+        {
             _options.add("-f " + _quality.getCode() + "+" + "bestaudio");
+        }
         if (jCheckBox_AUDIO.isSelected())
         {
             _options.add("-x");
@@ -418,11 +405,17 @@ public class MainWindow extends javax.swing.JFrame
             _options.add(jComboBox_AUDIO.getSelectedItem());
         }
         if (jCheckBox_SUBTITLES.isSelected())
+        {
             _options.add("--all-subs");
+        }
         if (jCheckBox_EmbedSubtitles.isEnabled() && jCheckBox_EmbedSubtitles.isSelected() && jCheckBox_SUBTITLES.isSelected())
+        {
             _options.add("--embed-subs");
+        }
         if (jRadioButton_FILE.isSelected())
+        {
             _options.add("-a");
+        }
 
         /* 
 		 * Run youtube-dl on a different thread to not block the UI check:
@@ -431,6 +424,7 @@ public class MainWindow extends javax.swing.JFrame
          */
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         if (!jRadioButton_UPDATE.isSelected())
+        {
             executorService.submit(new Runnable()
             {
                 public void run()
@@ -438,7 +432,9 @@ public class MainWindow extends javax.swing.JFrame
                     YoutubeDl.getVideo(jTextField_URL.getText(), _options, jTextField_OUTPUT.getText() + "/%(title)s.%(ext)s", jProgressBar_DProgress, jLabel_SPEED, jTextArea_OUTPUT, jComboBox_QUALITY_LIST);
                 }
             });
+        }
         else
+        {
             executorService.submit(new Runnable()
             {
                 public void run()
@@ -446,6 +442,7 @@ public class MainWindow extends javax.swing.JFrame
                     YoutubeDl.updateYTDL(jTextArea_OUTPUT, jProgressBar_DProgress);
                 }
             });
+        }
     }//GEN-LAST:event_jButton_DESCARGARActionPerformed
 
     private void jButton_SALIRActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_SALIRActionPerformed
@@ -483,7 +480,9 @@ public class MainWindow extends javax.swing.JFrame
             jButton_UPDATE_QUALITY_LIST.setEnabled(true);
         }
         if (!jButton_DESCARGAR.getText().contentEquals("Descargar!"))
+        {
             jButton_DESCARGAR.setText("Descargar!");
+        }
     }//GEN-LAST:event_jRadioButton_URLActionPerformed
 
     private void jRadioButton_FILEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton_FILEActionPerformed
@@ -496,7 +495,9 @@ public class MainWindow extends javax.swing.JFrame
             jButton_UPDATE_QUALITY_LIST.setEnabled(false);
         }
         if (!jButton_DESCARGAR.getText().contentEquals("Descargar!"))
+        {
             jButton_DESCARGAR.setText("Descargar!");
+        }
     }//GEN-LAST:event_jRadioButton_FILEActionPerformed
 
     private void jButton_SELECTOR_FILEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_SELECTOR_FILEActionPerformed
@@ -543,35 +544,8 @@ public class MainWindow extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex)
-        {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        /* Set the FlatLaf Look And Feel */
+        FlatLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()

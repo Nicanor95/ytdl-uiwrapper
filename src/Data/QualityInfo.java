@@ -11,6 +11,7 @@ package Data;
  */
 public class QualityInfo extends Object
 {
+
     private String _code;
     private String _name;
     private String _resolution;

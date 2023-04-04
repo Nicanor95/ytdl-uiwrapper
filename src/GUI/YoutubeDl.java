@@ -7,6 +7,7 @@ package GUI;
 
 import Data.QualityInfo;
 
+import java.nio.file.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,16 +26,36 @@ import javax.swing.JTextArea;
  */
 public class YoutubeDl
 {
+    private static String getYtdlPath()
+    {
+        String p;
+        if (System.getProperty("os.name").contains("Windows"))
+        {
+            Path _ytDlpPath = Paths.get("./tools/yt-dlp.exe");
+            if (Files.exists(_ytDlpPath))
+            {
+                p = _ytDlpPath.toAbsolutePath().toString();
+            }
+            else
+            {
+                p = "yt-dlp.exe";
+            }
+        }
+        else
+        {
+            p = "yt-dlp";
+        }
+        return p;
+    }
+    
     public static void updateQualityList(JComboBox qualityList, String URL, JProgressBar progressBar)
     {
         progressBar.setIndeterminate(true);
         ArrayList<String> _comArray = new ArrayList<>();
 
-        if (System.getProperty("os.name").contains("Windows"))
-            _comArray.add("./tools/youtube-dl.exe");
-        else
-            _comArray.add("youtube-dl");
-
+        _comArray.add(getYtdlPath());
+        _comArray.add("--compat-options");
+        _comArray.add("list-formats");
         _comArray.add("-F");
         _comArray.add(URL);
         try
@@ -60,7 +81,7 @@ public class YoutubeDl
             }
         } catch (IOException e)
         {
-            JOptionPane.showMessageDialog(null, "Error en la ejecucion de youtube-dl. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la ejecucion de yt-dlp. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
         progressBar.setIndeterminate(false);
     }
@@ -69,11 +90,8 @@ public class YoutubeDl
     {
         progressBar.setIndeterminate(true);
         ArrayList<String> _comArray = new ArrayList<>();
-        if (System.getProperty("os.name").contains("Windows"))
-            _comArray.add("./tools/youtube-dl.exe");
-        else
-            _comArray.add("youtube-dl");
 
+        _comArray.add(getYtdlPath());
         _comArray.add("-U");
 
         try
@@ -92,7 +110,7 @@ public class YoutubeDl
 
         } catch (IOException e)
         {
-            JOptionPane.showMessageDialog(null, "Error en la ejecucion de youtube-dl. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la ejecucion de yt-dlp. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
         progressBar.setIndeterminate(false);
     }
@@ -100,13 +118,8 @@ public class YoutubeDl
     public static void getVideo(String URL, ArrayList Options, String Output, JProgressBar progressBar, JLabel speedLabel, JTextArea outputArea, JComboBox comboBox)
     {
         ArrayList<String> _comArray = new ArrayList<>();
-        if (System.getProperty("os.name").contains("Windows"))
-        {
-            _comArray.add("./tools/youtube-dl.exe");
-        }
-        else
-            _comArray.add("youtube-dl");
 
+        _comArray.add(getYtdlPath());
         _comArray.addAll(Options);
         _comArray.add(URL);
         _comArray.add("-o");
@@ -139,14 +152,16 @@ public class YoutubeDl
                             progressBar.setValue(value.intValue());
                         }
                         if (x.contains("/s"))
+                        {
                             speedLabel.setText(x.trim());
+                        }
                     }
                 }
             }
             speedLabel.setText("Listo!");
         } catch (IOException e)
         {
-            JOptionPane.showMessageDialog(null, "Error en la ejecucion de youtube-dl. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la ejecucion de yt-dlp. ERROR: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
